@@ -9,12 +9,12 @@ const getRandomInt = (min, max) =>  {
 getRandomInt(0, 100);
 
 // получение случайного числа с плавающей точкой
-const getRandomNotInt = (min, max) => {
+const getRandomFloat = (min, max, digits) => {
   if(max < min){
     return;
   }
   max = Math.floor(max);
-  return Math.random().toFixed(1) * (max - min ) + min;
+  return Math.random().toFixed(digits) * (max - min ) + min;
 };
 
-getRandomNotInt(0, 100);
+getRandomFloat(0, 100, 2);
