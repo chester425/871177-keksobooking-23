@@ -1,3 +1,3 @@
-import {getAds} from './ads.js';
+import {getSimilarCard} from './render-card.js';
 
-getAds();
+getSimilarCard();
