@@ -1,3 +1,5 @@
-import {getSimilarCard} from './render-card.js';
+import {renderCard} from './render-card.js';
+import {getAds} from './ads.js';
 
-getSimilarCard();
+const data = getAds();
+renderCard(data[5]);

@@ -17,7 +17,7 @@ const getAds = () => {
         title: 'Крутая хата', //строка — заголовок предложения. Придумайте самостоятельно.
         address: `${LAT  }, ${  LNG}` , //строка — адрес предложения. Для простоты пусть пока  составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
         price: getRandomInt(Price.MIN,Price.MAX), //число — стоимость. Случайное целое положительное число.
-        type: getRandomArrayElement(TYPE_OF_HOUSE), //строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
+        type: getRandomArrayElement(Object.values(TYPE_OF_HOUSE)), //строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
         Rooms: getRandomInt(Rooms.MIN,Rooms.MAX), //число — количество комнат. Случайное целое положительное число.
         guests: getRandomInt(Guests.MIN,Guests.MAX), //число — количество гостей, которое можно разместить. Случайное целое положительное число.
         checkin: getRandomArrayElement(CHECKIN_TIMES), //строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.

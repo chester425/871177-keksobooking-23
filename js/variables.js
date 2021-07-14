@@ -1,19 +1,25 @@
 const NUMBER_ADS = 10;
-const TYPE_OF_HOUSE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
 const CHECKOUT_TIMES = ['12:00', '13:00', '14:00'];
 const OPTIONS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
+const TYPE_OF_HOUSE = {
+  bungalow: 'Бунгало',
+  flat: 'Квартира',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
 
 const LocationLat = {
   MIN: 35.65000,
-  MAX:35.70000,
+  MAX: 35.70000,
 };
 
 const LocationLng = {
   MIN: 139.70000,
-  MAX:139.80000,
+  MAX: 139.80000,
 };
 
 const Price = {
