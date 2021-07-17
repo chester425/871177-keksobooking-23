@@ -65,24 +65,24 @@ adPriceOneNigth.addEventListener('input', () => {
   adPriceOneNigth.reportValidity();
 });
 
-// связанный список
+
 const roomsNumber = document.querySelector('#room_number');
+const roomsValue = roomsNumber.querySelectorAll('option');
 const guestsNumber = document.querySelector('#capacity');
 const guestsValue = guestsNumber.querySelectorAll('option');
 const noGuests = guestsNumber.children[3];
 
+// связанный список комнат и гостей
 roomsNumber.addEventListener('change', () => {
   const currentValueRooms = roomsNumber.value;
+  guestsNumber.value = currentValueRooms;
   if (currentValueRooms === '100') {
     guestsValue.forEach((element) => {
       element.disabled = true;
       if (element.value === '0'){
         element.selected = true;
       }
-      guestsNumber.value = currentValueRooms;
-      element.selected = true;
     });
-
   }else {
     guestsValue.forEach((element) => {
       if (element.value <= currentValueRooms){
@@ -91,10 +91,36 @@ roomsNumber.addEventListener('change', () => {
       }else{
         element.disabled = true;
       }
-      guestsNumber.value = currentValueRooms;
     });
   }
   roomsNumber.setCustomValidity('Выберете другое количество комнат');
+});
+
+// связанный список гостей и комнат
+guestsNumber.addEventListener('change', () => {
+  const currentValueGuests = guestsNumber.value;
+  const currentValueRooms = roomsNumber.value;
+  if (currentValueGuests === '0') {
+    guestsValue.forEach((element) => {
+      element.disabled = true;
+    });
+    roomsValue.forEach((element) => {
+      if (element.value === '100'){
+        element.selected = true;
+        roomsNumber.setCustomValidity('Выберете другое количество комнат');
+      }
+    });
+  }else {
+    guestsValue.forEach((element) => {
+      if (element.value <= currentValueRooms){
+        element.disabled = false;
+        noGuests.disabled = true;
+      }else{
+        element.disabled = true;
+      }
+    });
+  }
+  guestsNumber.setCustomValidity('Выберете другое количество гостей');
 });
 
 
