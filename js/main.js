@@ -4,4 +4,4 @@ import {renderForm} from './form.js';
 
 const data = getAds();
 renderCard(data[5]);
-renderForm();
+// renderForm();
