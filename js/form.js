@@ -123,5 +123,42 @@ guestsNumber.addEventListener('change', () => {
   guestsNumber.setCustomValidity('Выберете другое количество гостей');
 });
 
+// тип жилья
+const typeOfHousing = document.querySelector('#type');
+const priceOneNight = document.querySelector('#price');
+priceOneNight.setCustomValidity('Введите сумму');
+priceOneNight.reportValidity();
+
+typeOfHousing.addEventListener('change', () => {
+  const currentValue = typeOfHousing.value;
+  if (currentValue === 'bungalow') {
+    priceOneNight.setAttribute('min', '0');
+    priceOneNight.placeholder = '0';
+  }else if (currentValue === 'flat') {
+    priceOneNight.setAttribute('min', '1000');
+    priceOneNight.placeholder = '1000';
+  } else if (currentValue === 'hotel') {
+    priceOneNight.setAttribute('min', '3000');
+    priceOneNight.placeholder = '3000';
+  } else if (currentValue === 'house') {
+    priceOneNight.setAttribute('min', '5000');
+    priceOneNight.placeholder = '5000';
+  }else if (currentValue === 'palace') {
+    priceOneNight.setAttribute('min', '10000');
+    priceOneNight.placeholder = '10000';
+  }
+});
+
+// времяя заезда и выезда
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+
+timeIn.addEventListener('change', () => {
+  timeOut.value = timeIn.value;
+});
+
+timeOut.addEventListener('change', () => {
+  timeIn.value = timeOut.value;
+});
 
 export {renderForm};
