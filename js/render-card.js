@@ -1,10 +1,6 @@
-import {getAds} from './ads.js';
-const cards = getAds();
-
 const similarPopupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-const mapCanvas = document.querySelector('#map-canvas');
 
 const getPopupPhotos = (container, photos) => {
   const popupPhotosElement = container.querySelector('.popup__photos');
@@ -93,11 +89,7 @@ const renderCard = (data) => {
     renderSimilarCard.querySelector('.popup__features').remove();
   }
 
-  mapCanvas.appendChild(renderSimilarCard);
+  return renderSimilarCard;
 };
 
-const renderCards = () =>{
-  cards.forEach((card) => renderCard(card));
-};
-
-export {renderCards, renderCard};
+export {renderCard};

@@ -1,41 +1,63 @@
 const adForm = document.querySelector('.ad-form');
-
+const mapFilters = document.querySelector('.map__filters');
 const adTitle = adForm.querySelector('#title');
 const adTitleMinLength = adTitle.getAttribute('minlength');
 const adTitleMaxLength = adTitle.getAttribute('maxlength');
-
 const adPriceOneNigth = adForm.querySelector('#price');
+const adAddress = adForm.querySelector('#address');
+const fildsetForm = adForm.querySelectorAll('fieldset');
+const roomsNumber = adForm.querySelector('#room_number');
+const roomsValue = roomsNumber.querySelectorAll('option');
+const guestsNumber = adForm.querySelector('#capacity');
+const guestsValue = guestsNumber.querySelectorAll('option');
+const noGuests = guestsNumber.children[3];
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+const selectFiltersMap = mapFilters.querySelectorAll('select');
+const selectFiltersFeatures = mapFilters.querySelectorAll('fieldset');
+
+// Добавление адреса центра карты
+const setAdAddress = (value) => {
+  adAddress.value = `${value.lat.toFixed(5)}, ${value.lng.toFixed(5)}`;
+};
+
+// Добавление класса и атрибута disabled
+const addClass = () => {
+  adForm.classList.add('ad-form--disabled');
+};
+
+const appendDisabled = (value) => {
+  value.forEach((element) => {
+    element.setAttribute('disabled', 'disabled');
+  });
+};
+
+// Удаления класса и атрибута disabled
+const deletClass = () => {
+  adForm.classList.remove('ad-form--disabled');
+};
+
+const deleteDisabled = (value) => {
+  value.forEach((element) => {
+    element.removeAttribute('disabled');
+  });
+};
+
 
 // перевод страницы в неактивное состояние
-const renderForm = () =>{
-  const mapFilters = document.querySelector('.map__filters');
-  const fildsetForm = adForm.querySelectorAll('fieldset');
-  const selectFiltersMap = mapFilters.querySelectorAll('select');
-  const selectFiltersFeatures = mapFilters.querySelectorAll('fieldset');
-
-  const addClass = () => {
-    adForm.classList.add('ad-form--disabled');
-  };
-
-  const appendDisabled = (value) => {
-    value.forEach((element) => {
-      element.setAttribute('disabled', 'disabled');
-    });
-  };
-
-
-  const deleteDisabled = (value) => {
-    value.forEach((element) => {
-      element.removeAttribute('disabled');
-    });
-  };
-
+const inactiveСondition = () => {
   appendDisabled(fildsetForm);
   appendDisabled(selectFiltersMap);
   appendDisabled(selectFiltersFeatures);
   addClass();
+};
 
+// перевод страницы в активное состояние
+const activeСondition = () => {
   deleteDisabled(fildsetForm);
+  deleteDisabled(selectFiltersMap);
+  deleteDisabled(selectFiltersFeatures);
+  deletClass();
 };
 
 // валидация формы
@@ -64,13 +86,6 @@ adPriceOneNigth.addEventListener('input', () => {
 
   adPriceOneNigth.reportValidity();
 });
-
-
-const roomsNumber = document.querySelector('#room_number');
-const roomsValue = roomsNumber.querySelectorAll('option');
-const guestsNumber = document.querySelector('#capacity');
-const guestsValue = guestsNumber.querySelectorAll('option');
-const noGuests = guestsNumber.children[3];
 
 // связанный список комнат и гостей
 roomsNumber.addEventListener('change', () => {
@@ -150,9 +165,6 @@ typeOfHousing.addEventListener('change', () => {
 });
 
 // времяя заезда и выезда
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
-
 timeIn.addEventListener('change', () => {
   timeOut.value = timeIn.value;
 });
@@ -161,4 +173,4 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
 
-export {renderForm};
+export {setAdAddress, inactiveСondition, activeСondition};
