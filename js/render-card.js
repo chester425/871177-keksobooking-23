@@ -1,4 +1,4 @@
-const similarPopupTemplate = document.querySelector('#card')
+const adAddressElementElement = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
@@ -36,7 +36,7 @@ const renderFeatureElements = (features, elements) => {
 };
 
 const renderCard = (data) => {
-  const renderSimilarCard = similarPopupTemplate.cloneNode(true);
+  const renderSimilarCard = adAddressElementElement.cloneNode(true);
 
   if(data.author.avatar){
     renderSimilarCard.querySelector('.popup__avatar').src = data.author.avatar;

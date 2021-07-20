@@ -1,10 +1,9 @@
-import {setAdAddress, activeСondition} from './form.js';
+import {setAdAddress, activeСondition, adFormElement} from './form.js';
 import {getAds} from './ads.js';
 import {renderCard} from './render-card.js';
 
 const renderData = getAds();
-const form = document.querySelector('.ad-form');
-const resetButton = document.querySelector('.ad-form__reset');
+const resetButtonElement = document.querySelector('.ad-form__reset');
 const ZOOM_MAP = 10;
 
 const CENTER_MAP = {
@@ -78,9 +77,9 @@ const installingMap = () =>{
   });
 
   // Сброс всех значений
-  resetButton.addEventListener('click', (evt) => {
+  resetButtonElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    form.reset();
+    adFormElement.reset();
     mainPinMarker.setLatLng(CENTER_MAP);
     setAdAddress(CENTER_MAP);
     map.setView(CENTER_MAP, ZOOM_MAP);
