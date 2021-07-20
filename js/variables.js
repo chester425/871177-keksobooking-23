@@ -1,4 +1,5 @@
 const NUMBER_ADS = 10;
+const DECIMAL_POINT = 5;
 const CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
 const CHECKOUT_TIMES = ['12:00', '13:00', '14:00'];
 const OPTIONS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -37,4 +38,4 @@ const Guests = {
   MAX: 6,
 };
 
-export { NUMBER_ADS, TYPE_OF_HOUSE, CHECKIN_TIMES, CHECKOUT_TIMES, OPTIONS, PHOTOS, LocationLat, LocationLng, Price, Rooms, Guests};
+export { NUMBER_ADS, TYPE_OF_HOUSE, CHECKIN_TIMES, CHECKOUT_TIMES, OPTIONS, PHOTOS, DECIMAL_POINT, LocationLat, LocationLng, Price, Rooms, Guests};

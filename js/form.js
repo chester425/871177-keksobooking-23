@@ -1,126 +1,166 @@
-const adForm = document.querySelector('.ad-form');
+import {DECIMAL_POINT} from './variables.js';
 
-const adTitle = adForm.querySelector('#title');
-const adTitleMinLength = adTitle.getAttribute('minlength');
-const adTitleMaxLength = adTitle.getAttribute('maxlength');
+const adFormElement = document.querySelector('.ad-form');
+const mapFiltersElement = document.querySelector('.map__filters');
+const adTitleElement = adFormElement.querySelector('#title');
+const adTitleMinLengthElement = adTitleElement.getAttribute('minlength');
+const adTitleMaxLengthElement = adTitleElement.getAttribute('maxlength');
+const adPriceOneNigthElement = adFormElement.querySelector('#price');
+const adAddressElement = adFormElement.querySelector('#address');
+const fildsetFormElement = adFormElement.querySelectorAll('fieldset');
+const roomsNumberElement = adFormElement.querySelector('#room_number');
+const roomsValueElement = roomsNumberElement.querySelectorAll('option');
+const guestsNumberElement = adFormElement.querySelector('#capacity');
+const guestsValueElementElement = guestsNumberElement.querySelectorAll('option');
+const noGuestsElement = guestsNumberElement.children[3];
+const timeInElement = document.querySelector('#timein');
+const timeOutElement = document.querySelector('#timeout');
+const selectFiltersMapElement = mapFiltersElement.querySelectorAll('select');
+const selectFiltersFeaturesElement = mapFiltersElement.querySelectorAll('fieldset');
 
-const adPriceOneNigth = adForm.querySelector('#price');
+// Добавление адреса центра карты
+const setAdAddress = (value) => {
+  adAddressElement.value = `${value.lat.toFixed(DECIMAL_POINT)}, ${value.lng.toFixed(DECIMAL_POINT)}`;
+};
+
+// Добавление класса и атрибута disabled
+const addClass = () => {
+  adFormElement.classList.add('ad-form--disabled');
+};
+
+const appendDisabled = (value) => {
+  value.forEach((element) => {
+    element.setAttribute('disabled', 'disabled');
+  });
+};
+
+// Удаления класса и атрибута disabled
+const deletClass = () => {
+  adFormElement.classList.remove('ad-form--disabled');
+};
+
+const deleteDisabled = (value) => {
+  value.forEach((element) => {
+    element.removeAttribute('disabled');
+  });
+};
+
 
 // перевод страницы в неактивное состояние
-const renderForm = () =>{
-  const mapFilters = document.querySelector('.map__filters');
-  const fildsetForm = adForm.querySelectorAll('fieldset');
-  const selectFiltersMap = mapFilters.querySelectorAll('select');
-  const selectFiltersFeatures = mapFilters.querySelectorAll('fieldset');
-
-  const addClass = () => {
-    adForm.classList.add('ad-form--disabled');
-  };
-
-  const appendDisabled = (value) => {
-    value.forEach((element) => {
-      element.setAttribute('disabled', 'disabled');
-    });
-  };
-
-
-  const deleteDisabled = (value) => {
-    value.forEach((element) => {
-      element.removeAttribute('disabled');
-    });
-  };
-
-  appendDisabled(fildsetForm);
-  appendDisabled(selectFiltersMap);
-  appendDisabled(selectFiltersFeatures);
+const inactiveСondition = () => {
+  appendDisabled(fildsetFormElement);
+  appendDisabled(selectFiltersMapElement);
+  appendDisabled(selectFiltersFeaturesElement);
   addClass();
+};
 
-  deleteDisabled(fildsetForm);
+// перевод страницы в активное состояние
+const activeСondition = () => {
+  deleteDisabled(fildsetFormElement);
+  deleteDisabled(selectFiltersMapElement);
+  deleteDisabled(selectFiltersFeaturesElement);
+  deletClass();
 };
 
 // валидация формы
-adTitle.addEventListener('input', () => {
-  const valueLength = adTitle.value.length;
+adTitleElement.addEventListener('input', () => {
+  const valueLength = adTitleElement.value.length;
 
-  if (valueLength < adTitleMinLength) {
-    adTitle.setCustomValidity(`Добавьте еще ${adTitleMinLength - valueLength} символов`);
-  } else if (valueLength > adTitleMaxLength) {
-    adTitle.setCustomValidity(`Удалите лишние ${valueLength - adTitleMaxLength} символы`);
+  if (valueLength < adTitleMinLengthElement) {
+    adTitleElement.setCustomValidity(`Добавьте еще ${adTitleMinLengthElement - valueLength} символов`);
+  } else if (valueLength > adTitleMaxLengthElement) {
+    adTitleElement.setCustomValidity(`Удалите лишние ${valueLength - adTitleMaxLengthElement} символы`);
   } else {
-    adTitle.setCustomValidity('');
+    adTitleElement.setCustomValidity('');
   }
 
-  adTitle.reportValidity();
+  adTitleElement.reportValidity();
 });
 
 // Цена за ночь
-adPriceOneNigth.addEventListener('input', () => {
-  const valueLength = adPriceOneNigth.value;
-  if (Number(valueLength) > Number(adPriceOneNigth.max)) {
-    adPriceOneNigth.setCustomValidity('Цена не более 1000000');
+adPriceOneNigthElement.addEventListener('input', () => {
+  const valueLength = adPriceOneNigthElement.value;
+  if (Number(valueLength) > Number(adPriceOneNigthElement.max)) {
+    adPriceOneNigthElement.setCustomValidity('Цена не более 1000000');
   }else {
-    adPriceOneNigth.setCustomValidity('');
+    adPriceOneNigthElement.setCustomValidity('');
   }
 
-  adPriceOneNigth.reportValidity();
+  adPriceOneNigthElement.reportValidity();
 });
 
-
-const roomsNumber = document.querySelector('#room_number');
-const roomsValue = roomsNumber.querySelectorAll('option');
-const guestsNumber = document.querySelector('#capacity');
-const guestsValue = guestsNumber.querySelectorAll('option');
-const noGuests = guestsNumber.children[3];
-
-// связанный список комнат и гостей
-roomsNumber.addEventListener('change', () => {
-  const currentValueRooms = roomsNumber.value;
-  guestsNumber.value = currentValueRooms;
+roomsNumberElement.addEventListener('oninput', () => {
+  const currentValueRooms = roomsNumberElement.value;
+  guestsNumberElement.value = currentValueRooms;
   if (currentValueRooms === '100') {
-    guestsValue.forEach((element) => {
+    guestsValueElementElement.forEach((element) => {
       element.disabled = true;
       if (element.value === '0'){
         element.selected = true;
       }
     });
   }else {
-    guestsValue.forEach((element) => {
+    guestsValueElementElement.forEach((element) => {
       if (element.value <= currentValueRooms){
         element.disabled = false;
-        noGuests.disabled = true;
+        noGuestsElement.disabled = true;
       }else{
         element.disabled = true;
       }
     });
   }
-  roomsNumber.setCustomValidity('Выберете другое количество комнат');
+  roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
 });
 
-// связанный список гостей и комнат
-guestsNumber.addEventListener('change', () => {
-  const currentValueGuests = guestsNumber.value;
-  const currentValueRooms = roomsNumber.value;
-  if (currentValueGuests === '0') {
-    guestsValue.forEach((element) => {
+// связанный список комнат и гостей
+roomsNumberElement.addEventListener('change', () => {
+  const currentValueRooms = roomsNumberElement.value;
+  guestsNumberElement.value = currentValueRooms;
+  if (currentValueRooms === '100') {
+    guestsValueElementElement.forEach((element) => {
       element.disabled = true;
-    });
-    roomsValue.forEach((element) => {
-      if (element.value === '100'){
+      if (element.value === '0'){
         element.selected = true;
-        roomsNumber.setCustomValidity('Выберете другое количество комнат');
       }
     });
   }else {
-    guestsValue.forEach((element) => {
+    guestsValueElementElement.forEach((element) => {
       if (element.value <= currentValueRooms){
         element.disabled = false;
-        noGuests.disabled = true;
+        noGuestsElement.disabled = true;
       }else{
         element.disabled = true;
       }
     });
   }
-  guestsNumber.setCustomValidity('Выберете другое количество гостей');
+  roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
+});
+
+// связанный список гостей и комнат
+guestsNumberElement.addEventListener('change', () => {
+  const currentValueGuests = guestsNumberElement.value;
+  const currentValueRooms = roomsNumberElement.value;
+  if (currentValueGuests === '0') {
+    guestsValueElementElement.forEach((element) => {
+      element.disabled = true;
+    });
+    roomsValueElement.forEach((element) => {
+      if (element.value === '100'){
+        element.selected = true;
+        roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
+      }
+    });
+  }else {
+    guestsValueElementElement.forEach((element) => {
+      if (element.value <= currentValueRooms){
+        element.disabled = false;
+        noGuestsElement.disabled = true;
+      }else{
+        element.disabled = true;
+      }
+    });
+  }
+  guestsNumberElement.setCustomValidity('Выберете другое количество гостей');
 });
 
 // тип жилья
@@ -150,15 +190,12 @@ typeOfHousing.addEventListener('change', () => {
 });
 
 // времяя заезда и выезда
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
-
-timeIn.addEventListener('change', () => {
-  timeOut.value = timeIn.value;
+timeInElement.addEventListener('change', () => {
+  timeOutElement.value = timeInElement.value;
 });
 
-timeOut.addEventListener('change', () => {
-  timeIn.value = timeOut.value;
+timeOutElement.addEventListener('change', () => {
+  timeInElement.value = timeOutElement.value;
 });
 
-export {renderForm};
+export {setAdAddress, inactiveСondition, activeСondition, adFormElement};
