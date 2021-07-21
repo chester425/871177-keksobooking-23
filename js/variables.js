@@ -1,9 +1,7 @@
-const NUMBER_ADS = 10;
 const DECIMAL_POINT = 5;
 const CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
 const CHECKOUT_TIMES = ['12:00', '13:00', '14:00'];
 const OPTIONS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
 const TYPE_OF_HOUSE = {
   bungalow: 'Бунгало',
@@ -11,16 +9,6 @@ const TYPE_OF_HOUSE = {
   house: 'Дом',
   palace: 'Дворец',
   hotel: 'Отель',
-};
-
-const LocationLat = {
-  MIN: 35.65000,
-  MAX: 35.70000,
-};
-
-const LocationLng = {
-  MIN: 139.70000,
-  MAX: 139.80000,
 };
 
 const Price = {
@@ -38,4 +26,4 @@ const Guests = {
   MAX: 6,
 };
 
-export { NUMBER_ADS, TYPE_OF_HOUSE, CHECKIN_TIMES, CHECKOUT_TIMES, OPTIONS, PHOTOS, DECIMAL_POINT, LocationLat, LocationLng, Price, Rooms, Guests};
+export {TYPE_OF_HOUSE, CHECKIN_TIMES, CHECKOUT_TIMES, OPTIONS, DECIMAL_POINT, Price, Rooms, Guests};

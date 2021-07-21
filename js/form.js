@@ -1,4 +1,7 @@
 import {DECIMAL_POINT} from './variables.js';
+import {sendData} from './fetch.js';
+import {showAlert} from './utils.js';
+import {showPopupSuccess} from './popup.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const mapFiltersElement = document.querySelector('.map__filters');
@@ -11,7 +14,8 @@ const fildsetFormElement = adFormElement.querySelectorAll('fieldset');
 const roomsNumberElement = adFormElement.querySelector('#room_number');
 const roomsValueElement = roomsNumberElement.querySelectorAll('option');
 const guestsNumberElement = adFormElement.querySelector('#capacity');
-const guestsValueElementElement = guestsNumberElement.querySelectorAll('option');
+const guestsValueElement = guestsNumberElement.querySelectorAll('option');
+// const adSubmitElement =  adFormElement.querySelector('.ad-form__submit');
 const noGuestsElement = guestsNumberElement.children[3];
 const timeInElement = document.querySelector('#timein');
 const timeOutElement = document.querySelector('#timeout');
@@ -85,31 +89,7 @@ adPriceOneNigthElement.addEventListener('input', () => {
   }else {
     adPriceOneNigthElement.setCustomValidity('');
   }
-
   adPriceOneNigthElement.reportValidity();
-});
-
-roomsNumberElement.addEventListener('oninput', () => {
-  const currentValueRooms = roomsNumberElement.value;
-  guestsNumberElement.value = currentValueRooms;
-  if (currentValueRooms === '100') {
-    guestsValueElementElement.forEach((element) => {
-      element.disabled = true;
-      if (element.value === '0'){
-        element.selected = true;
-      }
-    });
-  }else {
-    guestsValueElementElement.forEach((element) => {
-      if (element.value <= currentValueRooms){
-        element.disabled = false;
-        noGuestsElement.disabled = true;
-      }else{
-        element.disabled = true;
-      }
-    });
-  }
-  roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
 });
 
 // связанный список комнат и гостей
@@ -117,23 +97,24 @@ roomsNumberElement.addEventListener('change', () => {
   const currentValueRooms = roomsNumberElement.value;
   guestsNumberElement.value = currentValueRooms;
   if (currentValueRooms === '100') {
-    guestsValueElementElement.forEach((element) => {
+
+    guestsValueElement.forEach((element) => {
       element.disabled = true;
-      if (element.value === '0'){
-        element.selected = true;
-      }
+      element.value === '0';
+      element.selected = true;
+      roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
     });
   }else {
-    guestsValueElementElement.forEach((element) => {
+    guestsValueElement.forEach((element) => {
       if (element.value <= currentValueRooms){
         element.disabled = false;
         noGuestsElement.disabled = true;
+        roomsNumberElement.setCustomValidity('');
       }else{
         element.disabled = true;
       }
     });
   }
-  roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
 });
 
 // связанный список гостей и комнат
@@ -141,26 +122,26 @@ guestsNumberElement.addEventListener('change', () => {
   const currentValueGuests = guestsNumberElement.value;
   const currentValueRooms = roomsNumberElement.value;
   if (currentValueGuests === '0') {
-    guestsValueElementElement.forEach((element) => {
+    guestsValueElement.forEach((element) => {
       element.disabled = true;
+      guestsNumberElement.setCustomValidity('Выберете другое количество гостей');
     });
     roomsValueElement.forEach((element) => {
       if (element.value === '100'){
         element.selected = true;
-        roomsNumberElement.setCustomValidity('Выберете другое количество комнат');
       }
     });
   }else {
-    guestsValueElementElement.forEach((element) => {
+    guestsValueElement.forEach((element) => {
       if (element.value <= currentValueRooms){
         element.disabled = false;
         noGuestsElement.disabled = true;
+        guestsNumberElement.setCustomValidity('');
       }else{
         element.disabled = true;
       }
     });
   }
-  guestsNumberElement.setCustomValidity('Выберете другое количество гостей');
 });
 
 // тип жилья
@@ -196,6 +177,14 @@ timeInElement.addEventListener('change', () => {
 
 timeOutElement.addEventListener('change', () => {
   timeInElement.value = timeOutElement.value;
+});
+
+// обработчик на отправку
+
+adFormElement.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  sendData(showPopupSuccess, showAlert, formData);
 });
 
 export {setAdAddress, inactiveСondition, activeСondition, adFormElement};

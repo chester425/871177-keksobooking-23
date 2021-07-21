@@ -1,9 +1,9 @@
 import {setAdAddress, activeСondition, adFormElement} from './form.js';
-import {getAds} from './ads.js';
+import {getData} from './fetch.js';
 import {renderCard} from './render-card.js';
 
-const renderData = getAds();
 const resetButtonElement = document.querySelector('.ad-form__reset');
+const DATA_COUNT = 10;
 const ZOOM_MAP = 10;
 
 const CENTER_MAP = {
@@ -23,9 +23,9 @@ const ICON_MAP = {
   iconAnchor: [20, 40],
 };
 
+// карта
 const installingMap = () =>{
 
-  // карта
   const map = L.map('map-canvas')
     .on('load', () => {
       activeСondition();
@@ -50,22 +50,27 @@ const installingMap = () =>{
   );
   mainPinMarker.addTo(map);
 
-  renderData.forEach((element) => {
-    const icon = L.icon(ICON_MAP);
+  // данные с сервера
+  getData((data) => {
+    const renderData = data.slice(0, DATA_COUNT);
 
-    const marker = L.marker(element.location,
-      {
-        icon,
-      },
-    );
+    renderData.forEach((element) => {
+      const icon = L.icon(ICON_MAP);
 
-    marker
-      .addTo(map)
-      .bindPopup(renderCard(element),
+      const marker = L.marker(element.location,
         {
-          keepInView: true,
+          icon,
         },
       );
+
+      marker
+        .addTo(map)
+        .bindPopup(renderCard(element),
+          {
+            keepInView: true,
+          },
+        );
+    });
   });
 
   // Центр Токио
@@ -77,13 +82,14 @@ const installingMap = () =>{
   });
 
   // Сброс всех значений
-  resetButtonElement.addEventListener('click', (evt) => {
+  const resetFormHendler = (evt) => {
     evt.preventDefault();
     adFormElement.reset();
     mainPinMarker.setLatLng(CENTER_MAP);
     setAdAddress(CENTER_MAP);
     map.setView(CENTER_MAP, ZOOM_MAP);
-  });
+  };
+  resetButtonElement.addEventListener('click', resetFormHendler);
 };
 
 export {CENTER_MAP, installingMap};

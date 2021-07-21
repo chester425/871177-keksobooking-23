@@ -1,11 +1,11 @@
-const adAddressElementElement = document.querySelector('#card')
+const adAddressElement = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
 const getPopupPhotos = (container, photos) => {
   const popupPhotosElement = container.querySelector('.popup__photos');
   const popupPhotoElement = popupPhotosElement.querySelector('.popup__photo');
-  if (photos.length === 0) {
+  if (photos === undefined) {
     popupPhotoElement.style.display = 'none';
   } else {
     photos.forEach((photo, i) => {
@@ -36,7 +36,7 @@ const renderFeatureElements = (features, elements) => {
 };
 
 const renderCard = (data) => {
-  const renderSimilarCard = adAddressElementElement.cloneNode(true);
+  const renderSimilarCard = adAddressElement.cloneNode(true);
 
   if(data.author.avatar){
     renderSimilarCard.querySelector('.popup__avatar').src = data.author.avatar;
