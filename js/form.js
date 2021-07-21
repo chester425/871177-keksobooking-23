@@ -1,8 +1,7 @@
-import {DECIMAL_POINT} from './variables.js';
 import {sendData} from './fetch.js';
-import {showAlert} from './utils.js';
-import {showPopupSuccess} from './popup.js';
+import {showPopupSuccess, showPopupError} from './popup.js';
 
+const DECIMAL_POINT = 5;
 const adFormElement = document.querySelector('.ad-form');
 const mapFiltersElement = document.querySelector('.map__filters');
 const adTitleElement = adFormElement.querySelector('#title');
@@ -184,7 +183,7 @@ timeOutElement.addEventListener('change', () => {
 adFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
-  sendData(showPopupSuccess, showAlert, formData);
+  sendData(showPopupSuccess, showPopupError, formData);
 });
 
 export {setAdAddress, inactiveСondition, activeСondition, adFormElement};

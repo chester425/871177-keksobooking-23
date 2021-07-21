@@ -92,4 +92,4 @@ const installingMap = () =>{
   resetButtonElement.addEventListener('click', resetFormHendler);
 };
 
-export {CENTER_MAP, installingMap};
+export {CENTER_MAP, installingMap, resetButtonElement};

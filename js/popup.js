@@ -1,39 +1,50 @@
+import {resetButtonElement} from './map.js';
+
+const ESC_KEY = 27;
+
 const popupSuccessElement = document.querySelector('#success')
   .content
   .querySelector('.success');
 
+const popupErrorElement = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+const popupSuccess = popupSuccessElement.cloneNode(true);
+const popupError = popupErrorElement.cloneNode(true);
+
+const documentKeydownHandler = (evt) => {
+  if (evt.keyCode === ESC_KEY) {
+    popupSuccess.remove();
+    popupError.remove();
+    document.removeEventListener('keydown', documentKeydownHandler);
+  }
+};
+
+const addPopupEscClose = () => {
+  document.addEventListener('keydown', documentKeydownHandler);
+};
+
+const showPopupError = () => {
+  document.body.append(popupError);
+  const errorButtonElement = document.querySelector('.error__button');
+  popupError.addEventListener('click', () =>{
+    popupError.remove();
+  });
+  errorButtonElement.addEventListener('click', () =>{
+    popupError.remove();
+  });
+  addPopupEscClose();
+};
+
 const showPopupSuccess = () => {
-  const popupSuccess = popupSuccessElement.cloneNode(true);
   document.body.append(popupSuccess);
   popupSuccess.addEventListener('click', () =>{
     popupSuccess.remove();
+    resetButtonElement.click();
   });
+  addPopupEscClose();
+  resetButtonElement.click();
 };
 
-
-// const removePopup = (element) => {
-//   element.remove();
-//   document.removeEventListener('keydown', (evt) => {
-//     if (evt.keyCode ===  ESC_KEY) {
-//       removePopup(element);
-//     }
-//   });
-//   document.removeEventListener('click', () => {
-//     removePopup(element);
-//   });
-//   if (element.querySelector('.error__button')) {
-//     element.querySelector('.error__button').removeEventListener('keydown', () => {
-//       removePopup(element);
-//     });
-//   }
-// };
-//
-// const addPopupEscClose = (element) => {
-//   document.addEventListener('keydown', (evt) => {
-//     if (evt.keyCode ===  ESC_KEY) {
-//       removePopup(element);
-//     }
-//   });
-// };
-
-export {showPopupSuccess};
+export {showPopupSuccess, showPopupError};
