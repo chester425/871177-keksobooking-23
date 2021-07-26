@@ -100,6 +100,7 @@ const createMarker = (point) => {
     );
 };
 
+// изменение цены
 const changePriceFilter = (elementValue, filterValue) => {
   if (filterValue === PRICE_FILTER_LIMIT.LOW.VALUE){
     return elementValue < PRICE_FILTER_LIMIT.LOW.MAX;
