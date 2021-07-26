@@ -49,6 +49,11 @@ const deleteDisabled = (value) => {
   });
 };
 
+const initialNumberGuests = () => {
+  guestsValueElement.forEach((element) => {
+    element.selected ? element.disabled = false : element.disabled = true;
+  });
+};
 
 // перевод страницы в неактивное состояние
 const inactiveСondition = () => {
@@ -56,6 +61,7 @@ const inactiveСondition = () => {
   appendDisabled(selectFiltersMapElement);
   appendDisabled(selectFiltersFeaturesElement);
   addClass();
+  initialNumberGuests();
 };
 
 // перевод страницы в активное состояние
@@ -86,6 +92,8 @@ adPriceOneNigthElement.addEventListener('input', () => {
   const valueLength = adPriceOneNigthElement.value;
   if (Number(valueLength) > Number(adPriceOneNigthElement.max)) {
     adPriceOneNigthElement.setCustomValidity('Цена не более 1000000');
+  }else if (Number(valueLength) < Number(adPriceOneNigthElement.placeholder)) {
+    adPriceOneNigthElement.setCustomValidity('Цена не менее 5000');
   }else {
     adPriceOneNigthElement.setCustomValidity('');
   }
@@ -97,7 +105,6 @@ roomsNumberElement.addEventListener('change', () => {
   const currentValueRooms = roomsNumberElement.value;
   guestsNumberElement.value = currentValueRooms;
   if (currentValueRooms === '100') {
-
     guestsValueElement.forEach((element) => {
       element.disabled = true;
       element.value === '0';
@@ -117,7 +124,6 @@ roomsNumberElement.addEventListener('change', () => {
   }
 });
 
-// связанный список гостей и комнат
 guestsNumberElement.addEventListener('change', () => {
   const currentValueGuests = guestsNumberElement.value;
   const currentValueRooms = roomsNumberElement.value;
@@ -131,7 +137,10 @@ guestsNumberElement.addEventListener('change', () => {
         element.selected = true;
       }
     });
-  }else {
+  }
+
+
+  else {
     guestsValueElement.forEach((element) => {
       if (element.value <= currentValueRooms){
         element.disabled = false;
@@ -178,7 +187,6 @@ timeOutElement.addEventListener('change', () => {
 });
 
 // обработчик на отправку
-
 adFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);

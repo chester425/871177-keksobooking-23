@@ -1,4 +1,4 @@
-import {showAlert} from './utils.js';
+import {showAlert} from './show-alert.js';
 
 const FETCH_URL = 'https://23.javascript.pages.academy/keksobooking';
 const getData = (onSuccess, onFail) => {

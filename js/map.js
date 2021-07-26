@@ -3,13 +3,6 @@ import {getData} from './fetch.js';
 import {renderCard} from './render-card.js';
 import { debounce } from './utils/debounce.js';
 
-const resetButtonElement = document.querySelector('.ad-form__reset');
-const mapFilterElement = document.querySelector('.map__filters');
-const housingTypeFilterElement = mapFilterElement.querySelector('#housing-type');
-const housingPriceFilterElement = mapFilterElement.querySelector('#housing-price');
-const housingRoomsFilterElement = mapFilterElement.querySelector('#housing-rooms');
-const housingGuestsFilterElement = mapFilterElement.querySelector('#housing-guests');
-
 const DATA_COUNT = 10;
 const ZOOM_MAP = 12;
 const ANY_VALUE = 'any';
@@ -46,6 +39,13 @@ const PRICE_FILTER_LIMIT = {
     MIN: 50000,
   },
 };
+
+const resetButtonElement = document.querySelector('.ad-form__reset');
+const mapFilterElement = document.querySelector('.map__filters');
+const housingTypeFilterElement = mapFilterElement.querySelector('#housing-type');
+const housingPriceFilterElement = mapFilterElement.querySelector('#housing-price');
+const housingRoomsFilterElement = mapFilterElement.querySelector('#housing-rooms');
+const housingGuestsFilterElement = mapFilterElement.querySelector('#housing-guests');
 
 const map = L.map('map-canvas');
 const markerGroup = L.layerGroup().addTo(map);
@@ -181,8 +181,11 @@ const resetFormHendler = (evt) => {
   mainPinMarker.setLatLng(CENTER_MAP);
   setAdAddress(CENTER_MAP);
   map.setView(CENTER_MAP, ZOOM_MAP);
+  mapFilterElement.reset();
+  getData((data) => renderStartData(data));
 };
 
 resetButtonElement.addEventListener('click', resetFormHendler);
+
 
 export {CENTER_MAP, installingMap, resetButtonElement};
