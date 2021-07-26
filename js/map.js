@@ -1,6 +1,7 @@
 import {setAdAddress, activeСondition, adFormElement} from './form.js';
 import {getData} from './fetch.js';
 import {renderCard} from './render-card.js';
+import { debounce } from './utils/debounce.js';
 
 const resetButtonElement = document.querySelector('.ad-form__reset');
 const mapFilterElement = document.querySelector('.map__filters');
@@ -155,7 +156,7 @@ const filterTypeElement = (data) => data.filter(changeFilterElement);
 getData((data) => renderStartData(data));
 
 // рендер карты при помощи фильтра
-mapFilterElement.addEventListener('change', () => {
+mapFilterElement.addEventListener('change',debounce(() => {
   getData((data) => {
     markerGroup.clearLayers();
     filterTypeElement(data)
@@ -165,7 +166,7 @@ mapFilterElement.addEventListener('change', () => {
         createMarker(point);
       });
   });
-});
+}));
 
 // Изменение адреса
 mainPinMarker.on('moveend', (evt) => {
