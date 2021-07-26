@@ -1,7 +1,6 @@
 import {showAlert} from './utils.js';
 
 const FETCH_URL = 'https://23.javascript.pages.academy/keksobooking';
-
 const getData = (onSuccess, onFail) => {
   fetch(`${FETCH_URL}/data`)
     .then((response) => {
