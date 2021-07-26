@@ -14,12 +14,13 @@ const roomsNumberElement = adFormElement.querySelector('#room_number');
 const roomsValueElement = roomsNumberElement.querySelectorAll('option');
 const guestsNumberElement = adFormElement.querySelector('#capacity');
 const guestsValueElement = guestsNumberElement.querySelectorAll('option');
-// const adSubmitElement =  adFormElement.querySelector('.ad-form__submit');
 const noGuestsElement = guestsNumberElement.children[3];
 const timeInElement = document.querySelector('#timein');
 const timeOutElement = document.querySelector('#timeout');
 const selectFiltersMapElement = mapFiltersElement.querySelectorAll('select');
 const selectFiltersFeaturesElement = mapFiltersElement.querySelectorAll('fieldset');
+const typeOfHousing = document.querySelector('#type');
+const priceOneNight = document.querySelector('#price');
 
 // Добавление адреса центра карты
 const setAdAddress = (value) => {
@@ -144,8 +145,6 @@ guestsNumberElement.addEventListener('change', () => {
 });
 
 // тип жилья
-const typeOfHousing = document.querySelector('#type');
-const priceOneNight = document.querySelector('#price');
 priceOneNight.setCustomValidity('Введите сумму');
 priceOneNight.reportValidity();
 
